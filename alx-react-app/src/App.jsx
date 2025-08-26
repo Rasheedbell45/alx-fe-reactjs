@@ -1,1 +1,1 @@
-import WelcomeMessage from WelcomeMessage.jsx
+import "<WelcomeMessage />" from WelcomeMessage.jsx
