@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRecipeStore } from '../store/recipeStore';
 
 const AddRecipeForm = () => {
-  const addRecipe = useRecipeStore((state) => state.addRecipe);
+  const addRecipe = useRecipeStore((s) => s.addRecipe);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
@@ -11,9 +11,9 @@ const AddRecipeForm = () => {
     if (!title.trim() || !description.trim()) return;
 
     addRecipe({
-      id: Date.now(),
-      title,
-      description,
+      id: Date.now().toString(),
+      title: title.trim(),
+      description: description.trim(),
     });
 
     setTitle('');
@@ -21,10 +21,7 @@ const AddRecipeForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex flex-col gap-3 mt-5 border p-4 rounded-lg bg-white shadow-md"
-    >
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3 mt-5">
       <input
         type="text"
         value={title}
@@ -38,10 +35,7 @@ const AddRecipeForm = () => {
         placeholder="Recipe Description"
         className="border p-2 rounded"
       />
-      <button
-        type="submit"
-        className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
-      >
+      <button type="submit" className="bg-green-500 text-white py-2 px-4 rounded">
         Add Recipe
       </button>
     </form>
