@@ -10,8 +10,9 @@ const EditRecipeForm = ({ recipe, onCancel }) => {
 
   if (!recipe) return <p>Recipe not found.</p>;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
     if (!title.trim() || !description.trim()) return;
 
     updateRecipe({
@@ -20,7 +21,6 @@ const EditRecipeForm = ({ recipe, onCancel }) => {
       description: description.trim(),
     });
 
-    // After saving, navigate back to detail view
     navigate(`/recipes/${recipe.id}`);
   };
 
@@ -29,13 +29,13 @@ const EditRecipeForm = ({ recipe, onCancel }) => {
       <input
         type="text"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={(event) => setTitle(event.target.value)}
         placeholder="Recipe Title"
         className="border p-2 rounded"
       />
       <textarea
         value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        onChange={(event) => setDescription(event.target.value)}
         placeholder="Recipe Description"
         className="border p-2 rounded"
       />
