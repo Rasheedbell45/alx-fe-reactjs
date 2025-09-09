@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useRecipeStore } from '../store/recipeStore';
 import EditRecipeForm from './EditRecipeForm';
 import DeleteRecipeButton from './DeleteRecipeButton';
+import FavoriteButton from './FavoriteButton';
 
 const RecipeDetails = () => {
   const { id } = useParams();
@@ -65,6 +66,7 @@ const RecipeDetails = () => {
     Edit
   </button>
   <DeleteRecipeButton recipeId={recipe.id} redirectToHome={true} />
+  <FavoriteButton recipeId={recipe.id} />
 </div>
     </div>
   );
