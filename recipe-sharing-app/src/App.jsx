@@ -1,7 +1,8 @@
-import { Routes, Route, Link } from 'react-router-dom';
-import AddRecipeForm from './components/AddRecipeForm';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
+import AddRecipeForm from './components/AddRecipeForm';
 import RecipeDetails from './components/RecipeDetails';
+import SearchBar from './components/SearchBar';
 
 function HomePage() {
   return (
@@ -9,6 +10,7 @@ function HomePage() {
       <h1 className="text-2xl font-bold mb-5 text-center">🍲 Recipe Sharing App</h1>
       <AddRecipeForm />
       <hr className="my-6" />
+      <SearchBar />
       <RecipeList />
     </div>
   );
