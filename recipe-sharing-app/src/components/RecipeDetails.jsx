@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useRecipeStore } from '../store/recipeStore';
 import EditRecipeForm from './EditRecipeForm';
+import DeleteRecipeButton from './DeleteRecipeButton';
 
 const RecipeDetails = () => {
   const { id } = useParams();
@@ -55,6 +56,16 @@ const RecipeDetails = () => {
       ) : (
         <EditRecipeForm recipe={recipe} onCancel={() => setIsEditing(false)} />
       )}
+
+      <div className="mt-4 flex gap-3">
+  <button
+    onClick={() => setIsEditing(true)}
+    className="bg-yellow-500 text-white py-2 px-4 rounded"
+  >
+    Edit
+  </button>
+  <DeleteRecipeButton recipeId={recipe.id} redirectToHome={true} />
+</div>
     </div>
   );
 };
