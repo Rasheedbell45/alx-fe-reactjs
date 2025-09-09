@@ -3,6 +3,8 @@ import RecipeList from './components/RecipeList';
 import AddRecipeForm from './components/AddRecipeForm';
 import RecipeDetails from './components/RecipeDetails';
 import SearchBar from './components/SearchBar';
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
 
 function HomePage() {
   return (
@@ -12,6 +14,8 @@ function HomePage() {
       <hr className="my-6" />
       <SearchBar />
       <RecipeList />
+      <FavoritesList />
+      <RecommendationsList />
     </div>
   );
 }
@@ -22,11 +26,6 @@ function App() {
       <nav className="p-4 border-b">
         <Link to="/" className="font-semibold">Home</Link>
       </nav>
-
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/recipes/:id" element={<RecipeDetails />} />
-      </Routes>
 
        <Router>
       <div className="App">
