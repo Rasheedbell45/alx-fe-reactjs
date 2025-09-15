@@ -2,24 +2,22 @@ import { useState } from "react";
 import { fetchUserData } from "../services/githubService";
 
 function Search() {
-  const [query, setQuery] = useState("");
+  const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!query) return;
-
     setLoading(true);
-    setError("");
+    setError(false);
     setUser(null);
 
     try {
-      const data = await fetchUserData(query);
+      const data = await fetchUserData(username);
       setUser(data);
     } catch (err) {
-      setError("Looks like we can't find the user");
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -27,26 +25,30 @@ function Search() {
 
   return (
     <div>
-      {/* Search Form */}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Enter GitHub username..."
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          value={username}
+          placeholder="Enter GitHub username"
+          onChange={(e) => setUsername(e.target.value)}
         />
         <button type="submit">Search</button>
       </form>
 
-      {/* Conditional Rendering */}
+      {/* Conditional rendering */}
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p>Looks like we cant find the user</p>}
       {user && (
-        <div className="user-card">
-          <img src={user.avatar_url} alt={user.login} width="100" />
+        <div>
+          <img
+            src={user.avatar_url}
+            alt={user.login}
+            width="100"
+            style={{ borderRadius: "50%" }}
+          />
           <h2>{user.name || user.login}</h2>
-          <a href={user.html_url} target="_blank" rel="noopener noreferrer">
-            View Profile
+          <a href={user.html_url} target="_blank" rel="noreferrer">
+            Visit Profile
           </a>
         </div>
       )}
