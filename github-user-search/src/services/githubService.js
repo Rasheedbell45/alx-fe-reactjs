@@ -2,7 +2,13 @@ import axios from "axios";
 
 const BASE_URL = "https://api.github.com";
 
-// Advanced Search API
+// Basic: Fetch a single user by username
+export const fetchUserData = async (username) => {
+  const response = await axios.get(`${BASE_URL}/users/${username}`);
+  return response.data;
+};
+
+// Advanced: Search users by username, location, repo count
 export const advancedUserSearch = async (username, location, minRepos) => {
   let query = "";
 
