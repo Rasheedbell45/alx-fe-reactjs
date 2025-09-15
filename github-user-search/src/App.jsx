@@ -2,6 +2,7 @@ import { useState } from "react";
 import { searchUsers } from "./services/githubApi";
 import SearchBar from "./components/SearchBar";
 import UserCard from "./components/UserCard";
+import Search from "./components/Search";
 
 function App() {
   const [users, setUsers] = useState([]);
