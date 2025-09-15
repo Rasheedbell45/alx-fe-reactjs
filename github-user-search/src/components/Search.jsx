@@ -1,25 +1,34 @@
 import { useState } from "react";
-import { advancedUserSearch } from "../services/githubService";
+import { fetchUserData, advancedUserSearch } from "../services/githubService";
 
 function Search() {
   const [username, setUsername] = useState("");
   const [location, setLocation] = useState("");
   const [minRepos, setMinRepos] = useState("");
   const [results, setResults] = useState([]);
+  const [singleUser, setSingleUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [searched, setSearched] = useState(false); // NEW: track if search attempted
+  const [searched, setSearched] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(false);
     setResults([]);
+    setSingleUser(null);
     setSearched(true);
 
     try {
-      const data = await advancedUserSearch(username, location, minRepos);
-      setResults(data.items || []);
+      if (location || minRepos) {
+        // Advanced search if extra filters provided
+        const data = await advancedUserSearch(username, location, minRepos);
+        setResults(data.items || []);
+      } else {
+        // Basic search: single user by username
+        const data = await fetchUserData(username);
+        setSingleUser(data);
+      }
     } catch (err) {
       setError(true);
     } finally {
@@ -74,13 +83,37 @@ function Search() {
       <div className="mt-6">
         {loading && <p className="text-center">Loading...</p>}
         {error && (
-          <p className="text-center text-red-500">Something went wrong</p>
+          <p className="text-center text-red-500">Looks like we cant find the user</p>
         )}
-        {!loading && searched && results.length === 0 && !error && (
+        {!loading && searched && !error && !singleUser && results.length === 0 && (
           <p className="text-center text-gray-500">
             Looks like we cant find the user
           </p>
         )}
+
+        {/* Single User Result (basic search) */}
+        {singleUser && (
+          <div className="border rounded-lg p-4 shadow text-center">
+            <img
+              src={singleUser.avatar_url}
+              alt={singleUser.login}
+              className="w-24 h-24 rounded-full mx-auto"
+            />
+            <h2 className="text-lg font-semibold mt-2">
+              {singleUser.name || singleUser.login}
+            </h2>
+            <a
+              href={singleUser.html_url}
+              target="_blank"
+              rel="noreferrer"
+              className="text-blue-500 hover:underline"
+            >
+              View Profile
+            </a>
+          </div>
+        )}
+
+        {/* Multiple Users Result (advanced search) */}
         {results.length > 0 && (
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {results.map((user) => (
