@@ -8,7 +8,7 @@ function Search() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [searched, setSearched] = useState(false);
+  const [searched, setSearched] = useState(false); // NEW: track if search attempted
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -73,10 +73,12 @@ function Search() {
       {/* Results */}
       <div className="mt-6">
         {loading && <p className="text-center">Loading...</p>}
-        {error && <p className="text-center text-red-500">Something went wrong</p>}
+        {error && (
+          <p className="text-center text-red-500">Something went wrong</p>
+        )}
         {!loading && searched && results.length === 0 && !error && (
           <p className="text-center text-gray-500">
-            Looks like we can’t find the user
+            Looks like we cant find the user
           </p>
         )}
         {results.length > 0 && (
