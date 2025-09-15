@@ -8,7 +8,7 @@ export const fetchUserData = async (username) => {
   return response.data;
 };
 
-// Advanced: Search users by username, location, repo count
+// Advanced: Search users with filters (username, location, repo count)
 export const advancedUserSearch = async (username, location, minRepos) => {
   let query = "";
 
