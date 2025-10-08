@@ -54,7 +54,7 @@ const RegistrationForm = () => {
           <input
             type="text"
             name="username"
-            value={formData.username}
+            value={username}
             onChange={handleChange}
           />
           {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
