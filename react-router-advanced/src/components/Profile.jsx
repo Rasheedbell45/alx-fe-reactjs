@@ -1,25 +1,25 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
+import ProfileDetails from "./ProfileDetails";
+import ProfileSettings from "./ProfileSettings";
 
 const Profile = () => {
   return (
-    <div style={{ padding: "1rem", border: "1px solid #ddd", borderRadius: "8px" }}>
-      <h2>User Profile</h2>
-      <p>Welcome to your profile dashboard. Use the links below to navigate:</p>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">User Profile</h1>
 
-      <nav style={{ marginBottom: "1rem" }}>
-        <Link to="details" style={{ marginRight: "1rem", color: "blue" }}>
-          Profile Details
+      <nav className="flex gap-4 mb-6">
+        <Link to="details" className="text-blue-600 hover:underline">
+          Details
         </Link>
-        <Link to="settings" style={{ color: "blue" }}>
-          Profile Settings
+        <Link to="settings" className="text-blue-600 hover:underline">
+          Settings
         </Link>
       </nav>
 
-      {/* Outlet is where nested routes (ProfileDetails, ProfileSettings) will be displayed */}
-      <div style={{ padding: "1rem", backgroundColor: "#fafafa", borderRadius: "6px" }}>
-        <Outlet />
-      </div>
+      <Routes>
+        <Route path="details" element={<ProfileDetails />} />
+        <Route path="settings" element={<ProfileSettings />} />
+      </Routes>
     </div>
   );
 };
